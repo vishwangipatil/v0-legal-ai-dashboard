@@ -83,6 +83,7 @@ export function AppSidebar() {
             <span className="font-serif text-xl tracking-wide text-sidebar-foreground">LEXI</span>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </div>
+
           <div className="flex items-center gap-1">
             <TooltipProvider>
               <Tooltip>
@@ -94,6 +95,7 @@ export function AppSidebar() {
                 <TooltipContent>Search</TooltipContent>
               </Tooltip>
             </TooltipProvider>
+
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -104,6 +106,7 @@ export function AppSidebar() {
                 <TooltipContent>Duplicate</TooltipContent>
               </Tooltip>
             </TooltipProvider>
+
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -121,6 +124,7 @@ export function AppSidebar() {
             </TooltipProvider>
           </div>
         </div>
+
         <div className="px-2 pb-2">
           <Button variant="outline" className="w-full justify-start gap-2 h-9 bg-transparent">
             <Plus className="h-4 w-4" />
@@ -131,52 +135,60 @@ export function AppSidebar() {
 
       <SidebarContent className="bg-sidebar">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          
           <div className="px-2 pt-2">
             <TabsList className="w-full grid grid-cols-2 h-9">
               <TabsTrigger value="navigation" className="text-xs">Navigation</TabsTrigger>
               <TabsTrigger value="recent" className="text-xs">Recent</TabsTrigger>
             </TabsList>
           </div>
-          
+
           <TabsContent value="navigation" className="mt-0">
             <SidebarGroup>
               <SidebarGroupContent>
                 <SidebarMenu>
+
                   {mainNavItems.map((item) => (
                     <SidebarMenuItem key={item.label}>
+                      
                       {item.subItems ? (
                         <Collapsible
                           open={openItems.includes(item.label)}
                           onOpenChange={() => toggleItem(item.label)}
                         >
+
                           <CollapsibleTrigger asChild>
                             <SidebarMenuButton isActive={item.active}>
+                              
                               <item.icon className="h-4 w-4" />
                               <span className="flex-1">{item.label}</span>
+
+                              {/* ✅ FIXED HERE */}
                               {item.hasAdd && (
                                 <TooltipProvider>
                                   <Tooltip>
                                     <TooltipTrigger asChild>
-                                      <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="h-5 w-5 ml-auto"
+                                      <div
+                                        className="h-5 w-5 ml-auto flex items-center justify-center cursor-pointer hover:bg-muted rounded"
                                         onClick={(e) => e.stopPropagation()}
                                       >
                                         <Plus className="h-3 w-3" />
-                                      </Button>
+                                      </div>
                                     </TooltipTrigger>
                                     <TooltipContent>Add New</TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
                               )}
+
                               {openItems.includes(item.label) ? (
-                                <ChevronDown className="h-4 w-4 transition-transform" />
+                                <ChevronDown className="h-4 w-4" />
                               ) : (
-                                <ChevronRight className="h-4 w-4 transition-transform" />
+                                <ChevronRight className="h-4 w-4" />
                               )}
+
                             </SidebarMenuButton>
                           </CollapsibleTrigger>
+
                           <CollapsibleContent>
                             <SidebarMenuSub>
                               {item.subItems.map((subItem) => (
@@ -188,6 +200,7 @@ export function AppSidebar() {
                               ))}
                             </SidebarMenuSub>
                           </CollapsibleContent>
+
                         </Collapsible>
                       ) : (
                         <SidebarMenuButton isActive={item.active}>
@@ -195,45 +208,15 @@ export function AppSidebar() {
                           <span>{item.label}</span>
                         </SidebarMenuButton>
                       )}
+
                     </SidebarMenuItem>
                   ))}
+
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
           </TabsContent>
 
-          <TabsContent value="recent" className="mt-0">
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <div className="px-2 py-4 space-y-2">
-                  <Card className="bg-card">
-                    <CardHeader className="p-3 pb-1">
-                      <CardTitle className="text-xs font-medium">Contract Review - ABC Corp</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-3 pt-1">
-                      <p className="text-xs text-muted-foreground">2 hours ago</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-card">
-                    <CardHeader className="p-3 pb-1">
-                      <CardTitle className="text-xs font-medium">NDA Draft - XYZ Ltd</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-3 pt-1">
-                      <p className="text-xs text-muted-foreground">Yesterday</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-card">
-                    <CardHeader className="p-3 pb-1">
-                      <CardTitle className="text-xs font-medium">Legal Notice - Tenant</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-3 pt-1">
-                      <p className="text-xs text-muted-foreground">3 days ago</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </TabsContent>
         </Tabs>
       </SidebarContent>
 
@@ -246,7 +229,7 @@ export function AppSidebar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-5 w-5 -mt-1 -mr-1"
+                  className="h-5 w-5"
                   onClick={() => setShowNotification(false)}
                 >
                   <X className="h-3 w-3" />
@@ -255,13 +238,12 @@ export function AppSidebar() {
               <p className="text-xs text-muted-foreground mt-1">
                 You can now edit documents and track verification progress in Vault.
               </p>
-              <Button variant="link" className="h-auto p-0 text-xs mt-2">
-                Learn more
-              </Button>
             </CardContent>
           </Card>
         )}
+
         <SidebarSeparator />
+
         <SidebarMenu>
           {footerItems.map((item) => (
             <SidebarMenuItem key={item.label}>
